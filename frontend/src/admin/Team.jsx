@@ -1,47 +1,47 @@
 import React from 'react'
 import styled  from 'styled-components'
-function Services() {
+function Team() {
   return (
     <Wrapper>
       <div className="title">
-        <h1>Services We Provide</h1>
+        <h1>Meet our Team Members</h1>
         <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit illo cum debitis in soluta autem.</h5>
         </div>
         <div className="services">
           <div className="service">
 
-            <img src="./src/assets/dentist.jpg" alt="" />
-            <h3>Dental Treatment</h3>
+            <img src="./src/assets/team.webp" alt="" />
+            
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nesciunt.</p>
             <span>Learn More</span>
           </div>
           <div className="service">
-            <img src="./src/assets/dentist.jpg" alt="" />
-            <title>Dental Treatment</title>
+            <img src="./src/assets/team.webp" alt="" />
+          
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nesciunt.</p>
             <span>Learn More</span>
           </div>
           <div className="service">
-            <img src="./src/assets/dentist.jpg" alt="" />
-            <title>Dental Treatment</title>
+            <img src="./src/assets/team.webp" alt="" />
+       
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nesciunt.</p>
             <span>Learn More</span>
           </div>
           <div className="service">
-            <img src="./src/assets/dentist.jpg" alt="" />
-            <title>Dental Treatment</title>
+            <img src="./src/assets/team.webp" alt="" />
+       
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nesciunt.</p>
             <span>Learn More</span>
           </div>
           <div className="service">
-            <img src="./src/assets/dentist.jpg" alt="" />
-            <title>Dental Treatment</title>
+            <img src="./src/assets/team.webp" alt="" />
+         
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nesciunt.</p>
             <span>Learn More</span>
           </div>
           <div className="service">
-            <img src="./src/assets/dentist.jpg" alt="" />
-            <title>Dental Treatment</title>
+            <img src="./src/assets/team.webp" alt="" />
+         
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et, nesciunt.</p>
             <span>Learn More</span>
           </div>
@@ -75,13 +75,13 @@ const Wrapper = styled.div`
 
 }
 .service{
-  width:400px;
-  height:380px;
+  width:200px;
+  height:400px;
   background-color:white;
-  border-radius:10px;
-  align-items:center;
   display:flex;
     flex-direction:column;
+  border-radius:10px;
+  align-items:center;
   justify-items:center;
   margin:auto;
  
@@ -90,7 +90,7 @@ const Wrapper = styled.div`
 
   width::100%;
   height:250px;
-  border-radius:10px;
+  border-radius:50%;
 }
 `
-export default Services
+export default Team;

@@ -6,10 +6,10 @@ function NavBar() {
   return (
     <Navbar>
       <div className='title'>
-          <h1>Health Care</h1>
+        <NavLink style={{textDecoration:'none',color:'white'}} to='/'>  <h1 >Health Care</h1></NavLink>
       </div>
       <div className="links">
-        <li><NavLink style={{textDecoration:'none',color:"white"}} to='/'>DashBoard</NavLink></li>
+        <li><NavLink style={{textDecoration:'none',color:"white"}} to='/dashboard'>DashBoard</NavLink></li>
         <li><NavLink style={{textDecoration:'none',color:"white"}} to='/services'>Services</NavLink></li>
         <li><NavLink style={{textDecoration:'none',color:"white"}} to='/contact'>Contact Us</NavLink></li>
         
