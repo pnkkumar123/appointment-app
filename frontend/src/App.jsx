@@ -18,11 +18,15 @@ import Patients from "./DashBoard/Patients"
 import Timing from "./DashBoard/Timing"
 import SideBar from "./admin/SideBar"
 import styled from "styled-components"
+import { ThemeProvider } from "@mui/material"
+import { ColorModeContext,useMode } from "./Theme"
 function App() {
- 
+ const [theme,colorMode] = useMode()
 
   return (
-    <Wrapper>
+  <ColorModeContext.Provider value={colorMode}>
+  <ThemeProvider theme={theme}>
+      <Wrapper>
     <NavBar/>
     <div className="routes">
     <SideBar/>
@@ -44,6 +48,8 @@ function App() {
     </Routes>
     </div>
     </Wrapper>
+  </ThemeProvider>
+  </ColorModeContext.Provider>
   )
 }
 const Wrapper =styled.div`
