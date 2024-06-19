@@ -22,6 +22,7 @@ import { ThemeProvider } from "@mui/material"
 import { ColorModeContext,useMode } from "./Theme"
 import Overview from "./DashBoard/Overview"
 import SideBar from "./admin/SideBar"
+import DashBoardNavBar from "./DashBoard/DashboardNavBar"
 function App() {
  const [theme,colorMode] = useMode()
  const location = useLocation();
@@ -32,9 +33,10 @@ function App() {
   <ColorModeContext.Provider value={colorMode}>
   <ThemeProvider theme={theme}>
       <Wrapper>
-    <NavBar/>
+   {isDashboardPage ? (<DashBoardNavBar/>):(<NavBar/>)}
     <div className="routes">
     {isDashboardPage ? (<SideBar/>) : ""}
+
    <Routes>
     <Route exact path="/" element={<Home/>}/>
     {
