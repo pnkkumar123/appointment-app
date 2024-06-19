@@ -7,58 +7,58 @@ import { GrBlog } from "react-icons/gr";
 import { CiSettings } from "react-icons/ci";
 import styled from 'styled-components';
 import { MdGridView } from "react-icons/md";
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function SideBar() {
   return (
     <Wrapper>
 <div className="overview">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='/dashboard'><MdGridView />
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/overview'><MdGridView />
     <label style={{ marginLeft: '8px' }}>OverView</label>
-    </NavLink>
+    </Link>
 </div>
 <div className="calender">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='/appointment'><FaRegCalendarDays />
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/appointment'><FaRegCalendarDays />
     <label style={{ marginLeft: '8px' }}>Appointment</label>
-    </NavLink>
+    </Link>
 </div>
 <div className="patient">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='patients'>
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/patients'>
 <CgProfile />
 <label style={{ marginLeft: '8px' }}>My Patients</label>
-</NavLink>
+</Link>
 </div>
 <div className="schedule">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='/timing'>
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/timing'>
 <FaRegClock />
 <label style={{ marginLeft: '8px' }} >Schedule Timings</label>
-</NavLink>
+</Link>
 
 </div>
 <div className="payment">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='/payment'>
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/payment'>
 
 <CiCreditCard1 />
 <label style={{ marginLeft: '8px' }} htmlFor=''>Payments</label>
-</NavLink>
+</Link>
 </div>
 <div className="message">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='/message'>
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/message'>
 <FaFacebookMessenger />
 <label style={{ marginLeft: '8px' }} htmlFor=''>Message</label>
-</NavLink>
+</Link>
 </div>
 <div className="blog">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='/blog'>
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/blog'>
 <GrBlog />
 <label style={{ marginLeft: '8px' }} htmlFor=''>Blog</label>
-</NavLink>
+</Link>
 </div>
 <div className="settings">
-<NavLink style={{textDecoration:'none' ,color:'black'}} to='/settings'>
+<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/settings'>
 <CiSettings />
 <label style={{ marginLeft: '8px' }} htmlFor=''>Settings</label>
-</NavLink>
+</Link>
 </div>
     </Wrapper>
   )
