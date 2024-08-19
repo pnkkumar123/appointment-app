@@ -23,6 +23,7 @@ import { ColorModeContext,useMode } from "./Theme"
 import Overview from "./DashBoard/Overview"
 import SideBar from "./admin/SideBar"
 import DashBoardNavBar from "./DashBoard/DashboardNavBar"
+import Book from "./DashBoard/Book"
 function App() {
  const [theme,colorMode] = useMode()
  const location = useLocation();
@@ -56,6 +57,7 @@ function App() {
         </>
       )
     }
+    <Route exact path="/book" element={<Book/>}/>
     
    <Route exact path="/login" element={<Login/>}/>
     <Route exact path="/contact" element={<Contact/>}/>

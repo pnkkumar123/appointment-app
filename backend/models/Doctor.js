@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose =require( "mongoose");
 
 const DoctorSchema = new mongoose.Schema({
     name:{
@@ -25,5 +25,4 @@ const DoctorSchema = new mongoose.Schema({
         unique:true,
     }
 })
-const Doctor = mongoose.model("DoctorSchema",DoctorSchema);
-export default Doctor;
+module.exports = mongoose.model("DoctorSchema",DoctorSchema);

@@ -1,10 +1,10 @@
-import Doctor from "../models/Doctor.js";
-import bcryptjs from 'bcryptjs';
-import jwt from "jsonwebtoken"
-import dotenv from 'dotenv'
+const Doctor = require("../models/Doctor.js") ;
+const bcryptjs = require('bcryptjs') ;
+const jwt =require("jsonwebtoken") 
+const dotenv =require('dotenv')
 dotenv.config()
 // function to add doctor details
-export const SignUp = async(req,res,next)=>{
+ const SignUp = async(req,res,next)=>{
     const {email,name,password,username,mobile}=req.body;
      try{
       const existingUser = await Doctor.findOne({$or:[{email},{username}]});
@@ -30,7 +30,7 @@ export const SignUp = async(req,res,next)=>{
 
 }
 // function to sign in doctor
-export const SignIn = async (req,res,next)=>{
+ const SignIn = async (req,res,next)=>{
 const {email,password} = req.body;
 try{
  const validUser = await Doctor.findOne({email});
@@ -53,3 +53,4 @@ try{
    console.log(err)
 }
 }
+module.exports={SignIn,SignUp}
