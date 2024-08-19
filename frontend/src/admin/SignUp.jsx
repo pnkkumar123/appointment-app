@@ -1,28 +1,119 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function SignUp() {
-  return (
-    <Wrapper>
-    <div className="container">
-      <form action="" className="form">
-        <label htmlFor="">Name</label>
-        <input className="input" type="text" name="name" placeholder="name" />
-        <label htmlFor="">Email</label>
-        <input className="input" type="email" name="email" placeholder="email" />
-        <label htmlFor="">Password</label>
-        <input className="input" type="password" name="password" placeholder="password"/>
-        <label htmlFor="">Mobile</label>
-        <input className="input" type="number" name="number" placeholder="number" />
-        <input className="input" type="text" />
-        <input className="input" type="text" />
-        <input className="input" type="text" />
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
-    </Wrapper>
-  );
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        username: "", // Fixed the inconsistency here
+        password: "",
+        mobile: ""
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+    const handleInputChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            setError(false);
+
+            const res = await fetch('http://localhost:5000/sign/signup', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await res.json();
+            setLoading(false);
+
+            if (!res.ok) {
+                setError(data.error || "Something went wrong");
+                return;
+            }
+
+            alert("User created successfully");
+
+        } catch (e) {
+            setError("Error occurred while submitting the form");
+            setLoading(false);
+        }
+    }
+
+   
+    return (
+        <Wrapper>
+            <div className="container">
+                <form className="form" onSubmit={handleSubmit}>
+                    <label htmlFor="name">Name</label>
+                    <input
+                        onChange={handleInputChange}
+                        className="input"
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Name"
+                        
+                    />
+                    <label htmlFor="email">Email</label>
+                    <input
+                        onChange={handleInputChange}
+                        className="input"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Email"
+                        
+                    />
+                    <label htmlFor="password">Password</label>
+                    <input
+                        onChange={handleInputChange}
+                        className="input"
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        
+                    />
+                    <label htmlFor="number">Mobile</label>
+                    <input
+                        onChange={handleInputChange}
+                        className="input"
+                        type="number"
+                        name="mobile"
+                        id="mobile"
+                        placeholder="Mobile"
+                        
+                    />
+                    <label htmlFor="userName">User Name</label>
+                    <input
+                        onChange={handleInputChange}
+                        className="input"
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="Username"
+                        
+                    />
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <input
+                        className="button"
+                        type="submit"
+                        value="Submit"
+                        disabled={loading}
+                    />
+                </form>
+            </div>
+        </Wrapper>
+    );
 }
+
 const Wrapper = styled.div`
 background-size:cover;
 background-position:center;
