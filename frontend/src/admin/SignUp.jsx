@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function SignUp() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        username: "", // Fixed the inconsistency here
+        username: "",
         password: "",
+        qualification:"",
+        speciality:"",
+        availibilty:"",
         mobile: ""
     });
     const [loading, setLoading] = useState(false);
@@ -21,7 +24,7 @@ function SignUp() {
         try {
             setLoading(true);
             setError(false);
-
+    
             const res = await fetch('http://localhost:5000/sign/signup', {
                 method: "POST",
                 headers: {
@@ -29,22 +32,37 @@ function SignUp() {
                 },
                 body: JSON.stringify(formData)
             });
-
+    
             const data = await res.json();
             setLoading(false);
-
+    
             if (!res.ok) {
                 setError(data.error || "Something went wrong");
                 return;
             }
-
+    
             alert("User created successfully");
-
+    
+            // Clear the input fields by resetting the formData
+            setFormData({
+                name: "",
+                email: "",
+                username: "",
+                password: "",
+                qualification: "",
+                speciality: "",
+                availibilty: "",
+                mobile: ""
+            });
+    
         } catch (e) {
             setError("Error occurred while submitting the form");
             setLoading(false);
         }
     }
+    useEffect(()=>{
+
+    },[formData])
 
    
     return (
@@ -53,6 +71,7 @@ function SignUp() {
                 <form className="form" onSubmit={handleSubmit}>
                     <label htmlFor="name">Name</label>
                     <input
+                    value={formData.name}
                         onChange={handleInputChange}
                         className="input"
                         type="text"
@@ -61,8 +80,33 @@ function SignUp() {
                         placeholder="Name"
                         
                     />
+                    <label htmlFor="qualification">qualification</label>
+                    <input
+                    value={formData.qualification}
+                        onChange={handleInputChange}
+                        className="input"
+                        type="text"
+                        id="qualification"
+                        name="qualification"
+                        placeholder="Name"
+                        
+                    />
+                    <label htmlFor="Availibility">Availibility</label>
+                    <input value={formData.availibilty} type="datetime-local" name="availibilty" id="availibilty" onChange={handleInputChange}/>
+                    <label htmlFor="speciality">Speciality</label>
+                    <input
+                    value={formData.speciality}
+                        onChange={handleInputChange}
+                        className="input"
+                        type="text"
+                        id="speciality"
+                        name="speciality"
+                        placeholder="Name"
+                        
+                    />
                     <label htmlFor="email">Email</label>
                     <input
+                    value={formData.email}
                         onChange={handleInputChange}
                         className="input"
                         type="email"
@@ -73,6 +117,7 @@ function SignUp() {
                     />
                     <label htmlFor="password">Password</label>
                     <input
+                    value={formData.password}
                         onChange={handleInputChange}
                         className="input"
                         type="password"
@@ -83,6 +128,7 @@ function SignUp() {
                     />
                     <label htmlFor="number">Mobile</label>
                     <input
+                    value={formData.mobile}
                         onChange={handleInputChange}
                         className="input"
                         type="number"
@@ -93,6 +139,7 @@ function SignUp() {
                     />
                     <label htmlFor="userName">User Name</label>
                     <input
+                    value={formData.username}
                         onChange={handleInputChange}
                         className="input"
                         type="text"

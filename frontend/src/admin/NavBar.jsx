@@ -6,35 +6,37 @@ function NavBar() {
   return (
     <Navbar>
       <div className='title'>
-        <NavLink style={{textDecoration:'none',color:'white'}} to='/'>  <h1 >Health Care</h1></NavLink>
+        <NavLink style={{textDecoration:'none',color:'darkgreen'}} to='/'>  <img src="./src/assets/green.jpg" alt="" /></NavLink>
       </div>
       <div className="links">
-        <li><NavLink style={{textDecoration:'none',color:"white"}} to='/dashboard'>DashBoard</NavLink></li>
-        <li><NavLink style={{textDecoration:'none',color:"white"}} to='/services'>Services</NavLink></li>
-        <li><NavLink style={{textDecoration:'none',color:"white"}} to='/contact'>Contact Us</NavLink></li>
+        <li><NavLink style={{textDecoration:'none',color:"darkgreen"}} to='/dashboard'>DashBoard</NavLink></li>
+        <li><NavLink style={{textDecoration:'none',color:"darkgreen"}} to='/services'>Services</NavLink></li>
+        <li><NavLink style={{textDecoration:'none',color:"darkgreen"}} to='/contact'>Contact Us</NavLink></li>
         
         
       </div>
       <div className="sign">
-      <li><NavLink style={{textDecoration:'none',color:"white"}} to='/signup'>Sign Up</NavLink></li>
-        <li><NavLink style={{textDecoration:'none',color:"white",padding:"20px",backgroundColor:"blue",borderRadius:"6px"}} to='/login'>Login</NavLink></li>
+      <li><NavLink style={{textDecoration:'none',color:"darkgreen"}} to='/signup'>Sign Up</NavLink></li>
+        <li><NavLink style={{textDecoration:'none',color:"darkgreen",padding:"20px",backgroundColor:"blue",borderRadius:"6px"}} to='/login'>Login</NavLink></li>
       </div>
     </Navbar>
   )
 }
 const Navbar = styled.div`
-background-color:darkgreen;
-color:white;
+background-color:white;
+color:darkgreen;
  display:flex;
  flex-direction:row;
+ align-items:center;
  height:90px;
- border-radius:10px;
+ 
  width:100%; 
  justify-content:space-between;
 
-.title h1 {
+.title img {
   top:0;
-  height:50px;
+  height:90px;
+  width:120px;
 }
 .links{
   list-style:none;

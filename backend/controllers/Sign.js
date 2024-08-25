@@ -5,7 +5,7 @@ const dotenv =require('dotenv')
 dotenv.config()
 // function to add doctor details
  const SignUp = async(req,res,next)=>{
-    const {email,name,password,username,mobile}=req.body;
+    const {email,name,password,qualification,speciality,availibility,username,mobile}=req.body;
      try{
       const existingUser = await Doctor.findOne({$or:[{email},{username}]});
       if(existingUser){
@@ -17,6 +17,9 @@ dotenv.config()
             email,
             name,
             password:hashedPassword,
+            qualification,
+            speciality,
+            availibility,
             username,
             mobile
          })
@@ -53,4 +56,15 @@ try{
    console.log(err)
 }
 }
-module.exports={SignIn,SignUp}
+// getting doctors list
+const Doctors = (req,res)=>{
+    Doctor.find()
+   .then(doctors=>{
+      return res.status(200).json({doctors})
+   })
+   .catch(error=>{
+      return res.status(500).json({message:error})
+   })
+
+}
+module.exports={SignIn,SignUp,Doctors}

@@ -10,6 +10,18 @@ const DoctorSchema = new mongoose.Schema({
         require:true,
         unique:true,
     },
+    qualification:{
+        type:String,
+        required:true,
+    },
+    speciality:{
+       type:String,
+       required:true,
+    },
+    availibilty:{
+        type:Date,
+        
+    },
     password:{
         type:String,
         require:true,

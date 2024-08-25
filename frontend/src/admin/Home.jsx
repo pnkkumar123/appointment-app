@@ -2,10 +2,11 @@ import React from 'react'
 import Client from './Client'
 import Services from './Services'
 import Team from './Team'
+import styled from 'styled-components'
 
 function Home() {
   return (
-    <div>
+    <Wrapper>
       
       <div className="services">
         <Services/>
@@ -16,8 +17,11 @@ function Home() {
         <div className="client">
         <Client/>
         </div>
-    </div>
+    </Wrapper>
   )
 }
+const Wrapper = styled.div`
+width:100%;
 
+`
 export default Home

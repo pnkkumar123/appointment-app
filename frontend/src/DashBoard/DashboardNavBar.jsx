@@ -1,15 +1,18 @@
 import React from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { FaBell, FaMessage } from 'react-icons/fa6'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 function DashBoardNavBar() {
   return (
     <Wrapper>
     <div className='logo'>
-        <div>
-            <h1>Appointment</h1>
+       <NavLink to='/'>
+       <div>
+            <img src="./src/assets/green.jpg" alt="" />
         </div>
+       </NavLink>
        <nav className='navitems'>
         <input type="search" name="" id="" style={{width:"200px",height:"20px",borderRadius:"10px"}} />
         <FaSearch className='search' size={20}/>
@@ -30,6 +33,8 @@ function DashBoardNavBar() {
 }
 const Wrapper= styled.div`
 display:flex;
+height:90px;
+background-color:white;
 align-items:center;
 flex-direction:row;
 justify-content:space-between;
@@ -38,6 +43,10 @@ display:flex;
 flex-direction:row;
 justify-content:space-between;
 gap:400px;
+}
+.logo img{
+width:120px;
+height:90px;
 }
 .navitems{
 display:flex;
