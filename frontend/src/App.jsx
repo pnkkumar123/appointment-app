@@ -28,6 +28,14 @@ import Appointment from './DashBoard/Appointment';
 import Message from './DashBoard/Message';
 import Book from './DashBoard/Book';
 import AdminMain from './admin/AdminMain';
+import PatientPortal from './patient/PatientPortal';
+import PatientHistory from './patient/PatientHistory';
+import PatientDiscuss from './patient/PatientDiscuss';
+import PatientDashBoard from './patient/PatientDashBoard';
+import PatientReports from './patient/PatientReports';
+import PatientAppointments from './patient/PatientAppointments';
+import PatientSignIn from './patient/PatientSignIn';
+import PatientSignUp from './patient/PatientSignUp';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -35,7 +43,7 @@ function App() {
 
   const isDashboardPage = location.pathname.startsWith('/dashboard');
   const isAdmin = location.pathname.startsWith('/admin');
-
+const isPatient = location.pathname.startsWith('/portal');
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -84,6 +92,20 @@ function App() {
                     <Route exact path="/message" element={<Message />} />
                   </>
                 )}
+                {
+                    isPatient && (
+                      <>
+                      <Route exact path='/portal/*' element={<PatientPortal/>}/>
+                      <Route exact path='/patienthistory' element={<PatientHistory/>}/>
+                      <Route exact path='/patientdiscuss' element={<PatientDiscuss/>}/>
+                      <Route exact path='patientdashboard' element={<PatientDashBoard/>}/>
+                      <Route exact path='/patientreports' element={<PatientReports/>}/>
+                      <Route exact path='/patientappointment' element={<PatientAppointments/>}/>
+                      </>
+                    )
+                }
+                <Route exact path='/patientsignin' element={<PatientSignIn/>}/>
+                <Route exact path='/patientsignup' element={<PatientSignUp/>}/>
               </Routes>
             </div>
           </div>
