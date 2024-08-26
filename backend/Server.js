@@ -3,7 +3,8 @@ const  mongoose =require('mongoose')
 const cors =require('cors') ;
 // import { SignUp } from './controllers/Sign.js';
 const route =require('./routes/SignUp.js') ;
-const booking = require('./routes/Booking.js')
+const booking = require('./routes/Booking.js');
+const patientRoute = require('./routes/Patient.js');
 mongoose.connect('mongodb+srv://pankajkanwar420:7CiwpAyaXBMVJ9u1@cluster0.zbakjsh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 .then(()=>{
     console.log('connected to mongodb');
@@ -20,4 +21,5 @@ app.listen("5000",()=>{
 })
 app.use("/sign",route);
 app.use("/book",booking)
+app.use("/user",patientRoute)
 

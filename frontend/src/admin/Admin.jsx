@@ -3,17 +3,19 @@ import AdminSidebar from './AdminSidebar'
 import AdminMain from './AdminMain'
 import Doctors from './Doctors'
 import styled from 'styled-components'
+import { Route, Routes } from 'react-router-dom'
 
 function Admin() {
   return (
     <Wrapper>
-        <div className="sidebar">
-      
-        </div>
-        <div className="main">
-          <AdminMain/>
-          <Doctors/>
-        </div>
+      <Routes>
+        <Route path='doctors' element={<Doctors/>}/>
+     <Route path='main' element={<AdminMain/>}/>
+      </Routes>
+       
+     
+        
+       
     </Wrapper>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useGetDoctorQuery } from '../redux/slice/DoctorSlice'
+import { NavLink } from 'react-router-dom';
 
 function AdminMain() {
   const {data,isFetching,error}=useGetDoctorQuery();
@@ -8,7 +9,7 @@ function AdminMain() {
   const{doctors}=data;
   console.log(doctors.length);
   const datas = [
-    {number:`${doctors.length}`,name:"Doctors",color:"lightgreen"},
+    {number:`${doctors.length}`,name:"Doctors",color:"lightgreen",link:'/admin/doctors'},
     {number:"166k",name:"Total Patients",color:"pink"},
     {number:"53.5k",name:"Trasactions",color:"yellow"},
     {number:"28k",name:"Feedbacks",color:"green"},
@@ -36,12 +37,21 @@ function AdminMain() {
       <div className='maindiv'>
         {
           datas.map((item,index)=>{
-            return (
-              <div key={index} style={{backgroundColor:`${item.color}`}} className='box'>
+            return item.link ? (
+             <NavLink to={item.link}>
+               <div key={index} style={{backgroundColor:`${item.color}`}} className='box'>
                 <h3>{item.name}</h3>
                 <span>{item.number}</span>
 
               </div>
+
+             </NavLink>
+            ):(
+              <div key={index} style={{backgroundColor:`${item.color}`}} className='box'>
+              <h3>{item.name}</h3>
+              <span>{item.number}</span>
+
+            </div>
             )
           })
         }

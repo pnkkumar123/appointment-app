@@ -27,6 +27,7 @@ import Settings from './DashBoard/Settings';
 import Appointment from './DashBoard/Appointment';
 import Message from './DashBoard/Message';
 import Book from './DashBoard/Book';
+import AdminMain from './admin/AdminMain';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -60,7 +61,8 @@ function App() {
                 {/* Admin Routes */}
                 {isAdmin && (
                   <>
-                    <Route exact path="/admin" element={<Admin />} />
+                    <Route exact path="/admin/*" element={<Admin />} />
+                    <Route exact path='/main' element={<AdminMain/>}/>
                     <Route exact path="/transactions" element={<Transactions />} />
                     <Route exact path="/doctors" element={<Doctors />} />
                     <Route exact path="/feedback" element={<Feedback />} />

@@ -21,7 +21,7 @@ function Home() {
   )
 }
 const Wrapper = styled.div`
-width:100%;
+width:200vh;
 
 `
 export default Home

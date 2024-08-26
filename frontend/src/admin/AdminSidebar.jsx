@@ -13,7 +13,7 @@ function AdminSidebar() {
   return (
     <Wrapper>
 <div className="overview">
-<Link style={{textDecoration:'none' ,color:'black'}} to='/dashboard/overview'><MdGridView />
+<Link style={{textDecoration:'none' ,color:'black'}} to='/admin/main'><MdGridView />
     <label style={{ marginLeft: '8px' }}>OverView</label>
     </Link>
 </div>
