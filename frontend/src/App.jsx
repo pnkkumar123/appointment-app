@@ -36,6 +36,8 @@ import PatientReports from './patient/PatientReports';
 import PatientAppointments from './patient/PatientAppointments';
 import PatientSignIn from './patient/PatientSignIn';
 import PatientSignUp from './patient/PatientSignUp';
+import PatientProfile from './patient/PatientProfile';
+import PatientSidebar from './patient/PatientSidebar';
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -55,6 +57,7 @@ const isPatient = location.pathname.startsWith('/portal');
           <div className="container">
             {isAdmin && <AdminSidebar />}
             {isDashboardPage && <SideBar />}
+            {isPatient && <PatientSidebar/>}
 
             {/* Main Routes */}
             <div className="routes">
@@ -96,6 +99,7 @@ const isPatient = location.pathname.startsWith('/portal');
                     isPatient && (
                       <>
                       <Route exact path='/portal/*' element={<PatientPortal/>}/>
+                      <Route exact path='/patientprofile' element={<PatientProfile/>}/>
                       <Route exact path='/patienthistory' element={<PatientHistory/>}/>
                       <Route exact path='/patientdiscuss' element={<PatientDiscuss/>}/>
                       <Route exact path='patientdashboard' element={<PatientDashBoard/>}/>

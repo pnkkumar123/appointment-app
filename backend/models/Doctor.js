@@ -1,5 +1,10 @@
 const mongoose =require( "mongoose");
 
+const timeRangeSchema=new mongoose.Schema({
+    start:{type:String,require:true},
+    end:{type:String,require:true},
+});
+
 const DoctorSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -19,7 +24,13 @@ const DoctorSchema = new mongoose.Schema({
        required:true,
     },
     availibilty:{
-        type:Date,
+        days:{
+            type:[String],
+            enum:["Monday","Tuesday","Wednesday","Thrusday","Friday"],
+            require:true,
+        
+        },
+        TimeRanges:[timeRangeSchema],
         
     },
     password:{
@@ -30,6 +41,10 @@ const DoctorSchema = new mongoose.Schema({
          type:String,
          require:true,
          unique:true,
+    },
+    fee:{
+        type:String,
+        required:true,
     },
     mobile:{
         type:Number,

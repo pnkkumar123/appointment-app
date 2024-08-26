@@ -5,7 +5,7 @@ const dotenv =require('dotenv')
 dotenv.config()
 // function to add doctor details
  const SignUp = async(req,res,next)=>{
-    const {email,name,password,qualification,speciality,availibility,username,mobile}=req.body;
+    const {email,name,password,fee,qualification,speciality,availibility,username,mobile}=req.body;
      try{
       const existingUser = await Doctor.findOne({$or:[{email},{username}]});
       if(existingUser){
@@ -16,6 +16,7 @@ dotenv.config()
          const doctor = new Doctor({
             email,
             name,
+            fee,
             password:hashedPassword,
             qualification,
             speciality,

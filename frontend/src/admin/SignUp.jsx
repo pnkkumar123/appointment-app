@@ -5,6 +5,7 @@ function SignUp() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        fee:"",
         username: "",
         password: "",
         qualification:"",
@@ -49,6 +50,7 @@ function SignUp() {
                 email: "",
                 username: "",
                 password: "",
+                fee:"",
                 qualification: "",
                 speciality: "",
                 availibilty: "",
@@ -88,7 +90,18 @@ function SignUp() {
                         type="text"
                         id="qualification"
                         name="qualification"
-                        placeholder="Name"
+                        placeholder="Qualification"
+                        
+                    />
+                    <label htmlFor="qualification">Fee</label>
+                    <input
+                    value={formData.fee}
+                        onChange={handleInputChange}
+                        className="input"
+                        type="text"
+                        id="fee"
+                        name="fee"
+                        placeholder="Fee"
                         
                     />
                     <label htmlFor="Availibility">Availibility</label>
