@@ -5,131 +5,126 @@ const dotenv=require("dotenv");
 const Doctor = require("../models/Doctor.js");
 const Patient = require("../models/Patient.js");
 const generateSlots = require("../utils/GenerateSlots.js");
-
-// function for booking
-const BookingFunction = async (req, res) => {
-    const { doctorId, patientId, timeSlot } = req.body;
-
+const moment=require('moment')
+//BOOK APPOINTMENT
+const bookeAppointmnetController = async (req, res) => {
     try {
-        // Check if the doctor and patient exist
-        const doctor = await Doctor.findById(doctorId);
-        const patient = await Patient.findById(patientId);
-        if (!doctor) return res.status(404).json({ message: "Doctor not found" });
-        if (!patient) return res.status(404).json({ message: "Patient not found" });
-
-        // Ensure timeSlot is parsed correctly
-        const parsedTimeSlot = new Date(timeSlot);
-        if (isNaN(parsedTimeSlot.getTime())) {
-            return res.status(400).json({ message: "Invalid time slot value" });
-        }
-
-        // Check if the selected time slot is already booked
-        const existingBooking = await Booking.findOne({ doctorId, timeSlot: parsedTimeSlot.toISOString() });
-        if (existingBooking) {
-            return res.status(400).json({ message: "This time is already booked" });
-        }
-
-        // Create a new booking
-        const book = new Booking({
-            doctorId,
-            patientId,
-            timeSlot: parsedTimeSlot.toISOString(), // Convert to ISO string for consistent storage
+      req.body.date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+      req.body.time = moment(req.body.time, "HH:mm").toISOString();
+      req.body.status = "pending";
+      const newAppointment = new Booking(req.body);
+      await newAppointment.save();
+      const user = await Patient.findOne({ _id: req.body.patientId });
+   
+      await user.save();
+      res.status(200).send({
+        success: true,
+        message: "Appointment Book succesfully",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error While Booking Appointment",
+      });
+    }
+  };
+  
+  // booking bookingAvailabilityController
+  const bookingAvailabilityController = async (req, res) => {
+    try {
+      const date = moment(req.body.date, "DD-MM-YY").toISOString();
+      const fromTime = moment(req.body.time, "HH:mm")
+        .subtract(1, "hours")
+        .toISOString();
+      const toTime = moment(req.body.time, "HH:mm").add(1, "hours").toISOString();
+      const doctorId = req.body.doctorId;
+      const appointments = await Booking.find({
+        doctorId,
+        date,
+        time: {
+          $gte: fromTime,
+          $lte: toTime,
+        },
+      });
+      if (appointments.length > 0) {
+        return res.status(200).send({
+          message: "Appointments not Availibale at this time",
+          success: true,
         });
-
-        const result = await book.save();
-        return res.status(201).json({ booking: result, message: "Booking created successfully" });
+      } else {
+        return res.status(200).send({
+          success: true,
+          message: "Appointments available",
+        });
+      }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error In Booking",
+      });
     }
-};
-
+  };
   
-  
-  
-const GetBooking = async (req, res) => {
-    const doctorId = req.params.doctorId;
-
+  const userAppointmentsController = async (req, res) => {
     try {
-        // Find the doctor by ID
-        const doctor = await Doctor.findById(doctorId);
-        if (!doctor) return res.status(404).json({ message: "Doctor not found" });
-
-        // Generate all possible slots based on doctor's availability
-        const allSlots = generateSlots(doctor.availibilty);
-
-        // Get booked slots for the doctor
-        const bookedAppointments = await Booking.find({ doctorId }).select('timeSlot');
-
-        // Convert booked time slots to a more usable format
-        const bookedSlots = bookedAppointments.map((appointment) => {
-            const timeSlotStr = appointment.timeSlot;
-            try {
-                // Convert timeSlot from string to Date object
-                const date = new Date(timeSlotStr);
-        
-                // Check if date is valid
-                if (isNaN(date.getTime())) {
-                    console.error("Invalid time slot:", timeSlotStr);
-                    return null; // Or handle invalid time slots accordingly
-                }
-        
-                // Format the date and time
-                const day = date.toDateString().split(" ").slice(1, 3).join(" "); // e.g., "Aug 26"
-                const time = date.toTimeString().split(" ")[0].substring(0, 5); // e.g., "15:30"
-        
-                return {
-                    day,
-                    time,
-                };
-            } catch (error) {
-                console.error("Error processing time slot:", timeSlotStr, error);
-                return null; // Or handle invalid time slots accordingly
-            }
-        }).filter(slot => slot !== null); // Remove invalid slots
-        
-
-        // Remove duplicate time slots from bookedSlots
-        const uniqueBookedSlots = bookedSlots.reduce((acc, current) => {
-            const x = acc.find(item => item.day === current.day && item.time === current.time);
-            if (!x) {
-                return acc.concat([current]);
-            } else {
-                return acc;
-            }
-        }, []);
-
-        // Filter out booked slots from available slots
-        const availableSlots = allSlots.filter(
-            (slot) => !uniqueBookedSlots.some((booked) => booked.day === slot.day && booked.time === slot.time)
-        );
-
-        res.json({ availableSlots, bookedSlots: uniqueBookedSlots });
+      const appointments = await Booking.find({
+        userId: req.body.patientId,
+      });
+      res.status(200).send({
+        success: true,
+        message: "Users Appointments Fetch SUccessfully",
+        data: appointments,
+      });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error In User Appointments",
+      });
     }
-};
+  };
 
 
   
   
+  const getAllBookings = async (req, res) => {
+    try {
+      // Fetch all bookings from the Booking model
+      const bookings = await Booking.find();
   
-// function generateSlotr(availibilty){
-//     const {days,timeRanges}=availibilty;
-//     const slots = [];
+      // If there are no bookings found
+      if (!bookings || bookings.length === 0) {
+        return res.status(404).send({
+          success: false,
+          message: "No bookings found",
+        });
+      }
+  
+      // Convert date to readable format for each booking
+      const formattedBookings = bookings.map((booking) => ({
+        ...booking.toObject(),
+        date: moment(booking.date).format("DD-MM-YYYY"),  // Format date
+        time: booking.time,  // Time is already a string, no need to convert
+      }));
+  
+      res.status(200).send({
+        success: true,
+        bookings: formattedBookings,  // Send all formatted bookings
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error while fetching bookings",
+      });
+    }
+  };
+  
 
-//     days.forEach((day)=>{
-//         timeRanges.forEach((range)=>{
-//             const startTime=new Date(`1970-01-01T${range.start}:00`);
-//             const endTime=new Date(`1970-01-01T${range.end}:00`);
-
-//             while(startTime<endTime){
-//                 slots.push({
-//                     day,
-//                     time:startTime.toTimeString().substring(0,5),
-//                 });
-//                 startTime.setMinutes(startTime.getMinutes()+30);
-//             }
-//         })
-//     })
-//     return slots;}
-module.exports={BookingFunction,GetBooking};
+module.exports={bookeAppointmnetController,bookingAvailabilityController,userAppointmentsController,getAllBookings};

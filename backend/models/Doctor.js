@@ -1,55 +1,55 @@
 const mongoose =require( "mongoose");
 
-const timeRangeSchema=new mongoose.Schema({
-    start:{type:String,require:true},
-    end:{type:String,require:true},
+const timeRangeSchema = new mongoose.Schema({
+    start: { type: String, required: true },
+    end: { type: String, required: true },
 });
 
 const DoctorSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        require:true,
+    name: {
+        type: String,
+        required: true,
     },
-    email:{
-        type:String,
-        require:true,
-        unique:true,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    qualification:{
-        type:String,
-        required:true,
+    qualification: {
+        type: String,
+        required: true,
     },
-    speciality:{
-       type:String,
-       required:true,
+    speciality: {
+        type: String,
+        required: true,
     },
-    availibilty:{
-        days:{
-            type:[String],
-            enum:["Monday","Tuesday","Wednesday","Thrusday","Friday"],
-            require:true,
-        
+    availability: {
+        days: {
+            type: [String],
+            enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            required: true,
         },
-        TimeRanges:[timeRangeSchema],
-        
+        TimeRanges: [timeRangeSchema],
     },
-    password:{
-        type:String,
-        require:true,
+    
+    password: {
+        type: String,
+        required: true,
     },
-    username:{
-         type:String,
-         require:true,
-         unique:true,
+    username: {
+        type: String,
+        required: true,
+        unique: true,
     },
-    fee:{
-        type:String,
-        required:true,
+    fee: {
+        type: String,
+        required: true,
     },
-    mobile:{
-        type:Number,
-        require:true,
-        unique:true,
-    }
-})
+    mobile: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
+});
+
 module.exports = mongoose.model("DoctorSchema",DoctorSchema);
